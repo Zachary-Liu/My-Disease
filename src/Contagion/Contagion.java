@@ -1,5 +1,6 @@
 package Contagion;
 import java.awt.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -8,12 +9,15 @@ public class Contagion extends JPanel {
 	static int boardY = 800;
 	static int agentNum = 10000;
 	static int diseasedNum = 1;
-	static double gamma = 0.01;
-	static double beta = 0.5;
+	static double gamma = 0.00000001;
+	static double beta = 0.00001582;
 	static int iteration = 0;
 	static int numOfIterations;
 	static int walkBackTime;
 	static boolean walkBack;
+	static ArrayList<Integer> healthyHistory = new ArrayList<Integer>();
+	static ArrayList<Integer> infectedHistory = new ArrayList<Integer>();
+	static ArrayList<Integer> curedHistory = new ArrayList<Integer>();
 	static Board diseaseBoard = new Board (boardX, boardY, agentNum, gamma, beta, numOfIterations, walkBackTime, walkBack );
 	static JFrame window = new JFrame("d = " + boardX +","+boardY + " " + "beta = " + beta +" " + "gamma = " + gamma +
 			"Infected: " + diseaseBoard.getInfectedAgents().size() + "Cured: " + diseaseBoard.getCuredAgents().size() + 
@@ -36,9 +40,19 @@ public class Contagion extends JPanel {
 			catch (Exception e) {
 				
 			}
+			healthyHistory.add(diseaseBoard.getHealthyAgents().size());
+			infectedHistory.add(diseaseBoard.getInfectedAgents().size());
+			curedHistory.add(diseaseBoard.getCuredAgents().size());
+			plotInit();
+			
 			
 		}
 	}
+	static void plotInit() {
+		Graph graph = new Graph();
+		
+	}
+	
 	void graphicInit() {
 		setPreferredSize( new Dimension(boardX,boardY +100));
 		
